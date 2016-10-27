@@ -1,7 +1,5 @@
 package com.datascience.education.tutorial.lecture3
 
-import org.json4s.Writer
-
 import scala.concurrent._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -58,12 +56,12 @@ object FactorialWriter {
   //val x = Writer("msg", 1)
   //val y = x.flatMap(v => Writer("add 2", v + 2))
   //val z = y.flatMap(v => Writer("times 3", v * 3))
-  type Logged[A] = Writer[List, A]
-  object Logged {
-    def apply[A](a: A): Writer[List, A] = Writer[List, A](a)
-    def value[A](a: A): Logged[A] = Logged.value(a)
-    def tell[A](a: A): Logged[A] = Logged.value(a)
-  }
+  type Logged[A] = Writer[List[String], A]
+//  object Logged {
+//    def apply[A](a: A): Writer[List, A] = Writer[List, A](a)
+//    def value[A](a: A): Logged[A] = Logged.value(a)
+//    def tell[A](a: A): Logged[A] = Logged.value(a)
+//  }
 
   // Task (1b)
   // def factorial(n: Int): ??? = ???
