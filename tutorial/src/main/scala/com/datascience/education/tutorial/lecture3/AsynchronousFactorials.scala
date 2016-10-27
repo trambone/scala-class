@@ -1,4 +1,4 @@
-package com.datascience.education.tutorials.lecture3
+package com.datascience.education.tutorial.lecture3
 
 import org.json4s.Writer
 
