@@ -1,6 +1,9 @@
-package com.datascience.education.tutorial.lecture4
+package com.datascience.education.tutorial.lecture4a
 
-import cats.Traverse
+import scala.Option
+import scala.Some
+import scala.None
+
 import cats.Applicative
 import cats.std.list._
 
@@ -81,85 +84,11 @@ object TraverseOption {
      Here, G = Option, and Applicative[G] = Applicative[Option]
    */
   def traverse[A, B](listA: List[A])(f: A => Option[B]): Option[List[B]] =
-    Traverse[List].traverse(listA)(f)(applicativeOption)
+    listInstance.traverse(listA)(f)(applicativeOption)
 
   def sequence[A](loa: List[Option[A]]): Option[List[A]] =
-    Traverse[List].traverse(loa) { (oa: Option[A]) => oa }(applicativeOption)
+    listInstance.traverse(loa) { (oa: Option[A]) => oa }(applicativeOption)
 
 }
 
-object TraverseExample extends App {
-  import TraverseOption._
-
-  val capitalLetterCodes: List[Int] = List(65, 66, 88, 89, 90)
-
-  println("ASCII codes of a few capital letters")
-  println(capitalLetterCodes)
-
-  def capitalLetter(i: Int): Option[Char] =
-    if (i >= 65 && i <= 90) Some(i.toChar)
-    else None
-
-  println("Use `traverse` to apply `capitalLetter(i: Int): Option[Char]` and receive Option[List[Char]]")
-
-  val allCap: Option[List[Char]] =
-    traverse(capitalLetterCodes)(capitalLetter)
-
-  println(allCap)
-
-  println("-------------------------")
-
-  println("ASCII codes of some upper case letters and other ASCII characters")
-  val mixedLetterCodes: List[Int] = List(60, 61, 62, 65, 66, 88, 89, 90, 98)
-  println(mixedLetterCodes)
-
-  println("Use `traverse` to apply `capitalLetter(i: Int): Option[Char]` and receive Option[List[Char]]")
-
-  val severalCap: Option[List[Char]] =
-    traverse(mixedLetterCodes)(capitalLetter)
-
-  println(severalCap)
-
-}
-
-object SequenceExample extends App {
-  import TraverseOption._
-
-  val capitalLetterCodes: List[Int] = List(65, 66, 88, 89, 90)
-
-  println("ASCII codes of a few capital letters")
-  println(capitalLetterCodes)
-
-  def capitalLetter(i: Int): Option[Char] =
-    if (i >= 65 && i <= 90) Some(i.toChar)
-    else None
-
-  println("mapped to capital letters:")
-
-  val capitalLetters: List[Option[Char]] =
-    capitalLetterCodes.map { (i: Int) => capitalLetter(i) }
-  println(capitalLetters)
-
-  println("Use `sequence` to invert the containers  List[Option[Char]] => Option[List[Char]]: ")
-  val optionListCapitalLetters: Option[List[Char]] =
-    sequence(capitalLetters)
-  println(optionListCapitalLetters)
-
-  println("-------------------------")
-
-  println("ASCII codes of some upper case letters and other ASCII characters")
-  val mixedLetterCodes: List[Int] = List(60, 61, 62, 65, 66, 88, 89, 90, 98)
-  println(mixedLetterCodes)
-
-  println("Only the ASCII codes for upper case letters are converted to characters: ")
-  val mixedLetters: List[Option[Char]] =
-    mixedLetterCodes.map { (i: Int) => capitalLetter(i) }
-  println(mixedLetters)
-
-  println("Use sequence to invert the containers  List[Option[Char]] => Option[List[Char]]: ")
-  val notAllCapital: Option[List[Char]] =
-    sequence(mixedLetters)
-  println(notAllCapital)
-
-}
 

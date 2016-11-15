@@ -6,7 +6,7 @@ object Dependencies {
   import Common.scalaVer
 
   
-  val catsVersion = "0.7.2"
+  val catsVersion = "0.6.0"
   val dogsVersion = "0.2.2"
   val algebirdVersion = "0.12.1"
   val shapelessVersion = "2.3.2"
@@ -53,6 +53,7 @@ object Dependencies {
     "com.twitter" %% "summingbird-builder" % summingbirdVersion,
     "com.twitter" %% "summingbird-storm" % summingbirdVersion,
     "org.json4s" %% "json4s-native" % json4sVersion,
+    "commons-validator" % "commons-validator" % "1.5.1",
     kindProjector,
     si2712
   )
